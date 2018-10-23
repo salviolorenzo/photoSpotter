@@ -14,6 +14,9 @@ html, body{
     margin: 0;
     padding: 0;
 }
+body {
+    font-family: 'Prata', serif;
+}
 
 h1 {
     text-align: center;
@@ -23,13 +26,35 @@ h1 {
 
 }
 
-.landing{
-    background-image: url(../images/adventure-attraction-blurry-618545\ \(1\).jpg);
+.landing-image{
+    background-image: url(../images/cover-photo.jpg);
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: contain;
-    min-height: 500px;
+    background-size: cover;
+    min-height: 400px;
     min-width: 100%;
+
+   
 
 }
 
+#textbox {
+    width: 500px;
+    font-size: 32px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#submitbox {
+    width: 200px;
+    font-size: 32px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    
+    
+}
+
+.center-center {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    
+}
