@@ -14,22 +14,71 @@ html, body{
     margin: 0;
     padding: 0;
 }
+body {
+    font-family: 'Prata', serif;
+}
 
 h1 {
     text-align: center;
-    font-family: 'Prata', serif;
+    font-family: 'Monoton', cursive;
 
     color: darkseagreen;
 
 }
+/* evenly spaces nav bar at any size */
+.nav-container {
+    margin: 0 2px;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    
+}
 
-.landing{
-    background-image: url(../images/adventure-attraction-blurry-618545\ \(1\).jpg);
+.nav-link {
+    text-decoration: none;
+    margin-right: 18px;
+    color: black;
+}
+
+h2 {
+    color: black;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    opacity: 0.6;
+}    
+/* image with search bar on top */
+.landing-image{
+    background-image: url(../images/cover-photo.jpg);
     background-repeat: no-repeat;
     background-position: top center;
-    background-size: contain;
-    min-height: 500px;
+    background-size: cover;
+    min-height: 400px;
     min-width: 100%;
+    /* display: flex; */
+   
 
 }
+/*  */
+#textbox {
+    width: 60%;
+    font-size: 26px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+}
+
+#submitbox {
+    width: 30%;
+    font-size: 26px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    display: flex;
+    
+    
+}
+
+.center-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
 
