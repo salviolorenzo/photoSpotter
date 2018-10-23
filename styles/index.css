@@ -33,3 +33,14 @@ h1 {
 
 }
 
+.map-weather{
+    width: 100%;
+    min-height: 300px;
+}
+
+.map{
+    height: 100%;
+    width: 100%;
+    min-height: 300px;
+}
+

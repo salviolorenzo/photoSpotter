@@ -7,7 +7,7 @@
 
 const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
-
+const mapContainer = document.querySelector('[data-map]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -40,7 +40,7 @@ function getPhotoStats(obj) {
             locationArray.forEach(function (location, index) {
                 statArray[index]['location'] = location;
             });
-            console.log(statArray.slice(0, 20));
+            // console.log(statArray.slice(0, 20));
             return statArray.slice(0, 20);
         });
 }
@@ -62,33 +62,34 @@ searchForm.addEventListener("submit", handleSubmit);
 // moves image sources into a new array, change image on key press
 // ======================================================
 
-function drawImages(array) {
-    let srcArray = [];
-    for (item of array) {
-        srcArray.push(item.src);
-    }
-    let index = 0;
-    galleryImage.src = srcArray[index];
 
-    console.log(srcArray);
-    console.log(galleryImage.src);
+function drawImages(array) {
+    // let srcArray = [];
+    // for (item of array) {
+    //     srcArray.push(item.src);
+    // }
+    let index = 0;
+    galleryImage.src = array[index].src;
+
+    console.log(array);
+    // console.log(galleryImage.src);
 
     window.addEventListener('keydown', function (event) {
         if (event.keyCode === 39) {
             console.log('right');
             index += 1;
-            if (index > srcArray.length - 1) {
+            if (index > array.length - 1) {
                 index = 0;
             }
-            galleryImage.src = srcArray[index];
+            galleryImage.src = array[index].src;
         }
         else if (event.keyCode === 37) {
             console.log('left');
             index -= 1;
             if (index < 0) {
-                index = srcArray.length - 1;
+                index = array.length - 1;
             }
-            galleryImage.src = srcArray[index];
+            galleryImage.src = array[index].src;
         }
     })
     return array;
@@ -104,6 +105,27 @@ function locationsArray(array) {
     return array;
 }
 
+// ========================================================
+// gets location for each item to be passed to marker
+// ========================================================
+// function getOne(item) {
+//     object = item;
+//     return object;
+// }
+
+// let item = {
+//     'latitude': 33,
+//     'longitude': -84
+// }
+
+function OneLocation(item) {
+    let locationObj = {
+        'lat': item.latitude,
+        'lng': item.longitude
+    }
+    return locationObj;
+}
+
 //==========================================================
 // retrieves images, calls functions to manipulate data and draw to screen
 // ============================================================
@@ -112,6 +134,34 @@ function getPhotos(userSearch) {
         .then(r => r.json())
         .then(j => j.photos)
         .then(getPhotoStats)
-        .then(drawImages)
-        .then(locationsArray);
+        .then(locationsArray)
+        .then(drawImages);
 }
+
+//==========================================================
+// Maps API Functions
+// ============================================================
+
+let map;
+function initMap() {
+    let myLatLng = { 'lat': 33.5, 'lng': -84.5 };
+
+    map = new google.maps.Map(mapContainer, {
+        center: myLatLng,
+        zoom: 7
+    });
+
+}
+
+function addMarker(coords) {
+    let marker = new google.maps.Marker({
+        position: coords,
+        map: map
+    })
+    map.center = marker.position;
+}
+
+
+
+
+
