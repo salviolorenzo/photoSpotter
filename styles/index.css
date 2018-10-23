@@ -25,7 +25,7 @@ h1 {
     color: darkseagreen;
 
 }
-
+/* evenly spaces nav bar at any size */
 .nav-container {
     margin: 0 2px;
     padding: 0;
@@ -43,9 +43,9 @@ h1 {
 h2 {
     color: black;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    opacity: 0.8;
+    opacity: 0.6;
 }    
-
+/* image with search bar on top */
 .landing-image{
     background-image: url(../images/cover-photo.jpg);
     background-repeat: no-repeat;
@@ -57,7 +57,7 @@ h2 {
    
 
 }
-
+/*  */
 #textbox {
     width: 60%;
     font-size: 26px;
@@ -66,7 +66,7 @@ h2 {
 }
 
 #submitbox {
-    width: 20%;
+    width: 30%;
     font-size: 26px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     display: flex;
