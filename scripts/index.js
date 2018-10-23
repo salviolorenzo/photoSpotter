@@ -8,6 +8,7 @@
 const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
 const mapContainer = document.querySelector('[data-map]');
+const weatherContainer = document.querySelector('[data-weather]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -71,7 +72,7 @@ function drawImages(array) {
     let index = 0;
     galleryImage.src = array[index].src;
 
-    console.log(array);
+    // console.log(array);
     // console.log(galleryImage.src);
 
     window.addEventListener('keydown', function (event) {
@@ -82,6 +83,7 @@ function drawImages(array) {
                 index = 0;
             }
             galleryImage.src = array[index].src;
+
         }
         else if (event.keyCode === 37) {
             console.log('left');
@@ -90,11 +92,21 @@ function drawImages(array) {
                 index = array.length - 1;
             }
             galleryImage.src = array[index].src;
+
         }
     })
+    galleryImage.addEventListener('click', function () {
+        let latitude = parseFloat(array[index].latitude);
+        let longitude = parseFloat(array[index].longitude);
+        addMarker(latitude, longitude);
+        getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
+    });
     return array;
 }
 
+// ==================================================
+// Extracts lat and long attributes from location
+// ==================================================
 
 function locationsArray(array) {
     for (item of array) {
@@ -103,27 +115,6 @@ function locationsArray(array) {
         delete item.location;
     }
     return array;
-}
-
-// ========================================================
-// gets location for each item to be passed to marker
-// ========================================================
-// function getOne(item) {
-//     object = item;
-//     return object;
-// }
-
-// let item = {
-//     'latitude': 33,
-//     'longitude': -84
-// }
-
-function OneLocation(item) {
-    let locationObj = {
-        'lat': item.latitude,
-        'lng': item.longitude
-    }
-    return locationObj;
 }
 
 //==========================================================
@@ -144,24 +135,65 @@ function getPhotos(userSearch) {
 
 let map;
 function initMap() {
-    let myLatLng = { 'lat': 33.5, 'lng': -84.5 };
+    let myLatLng = { 'lat': 0, 'lng': 0 };
 
     map = new google.maps.Map(mapContainer, {
         center: myLatLng,
-        zoom: 7
+        zoom: 2
     });
 
 }
 
-function addMarker(coords) {
+function addMarker(lat, long) {
     let marker = new google.maps.Marker({
-        position: coords,
+        position: { 'lat': lat, 'lng': long },
         map: map
     })
     map.center = marker.position;
 }
 
+//==========================================================
+// Weather API Functions
+// ============================================================
+function drawName(obj) {
+    let cityName = document.createElement('h3');
+    cityName.textContent = obj.name;
+    weatherContainer.appendChild(cityName);
+    return obj;
+}
 
+function drawTemp(obj) {
+    let temperature = document.createElement('p');
+    let temp = obj.main.temp;
+    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+    temperature.textContent = `Temperature: ${temp} °F`;
+    weatherContainer.appendChild(temperature);
+    return obj;
+}
+
+function weather(obj) {
+    let weatherObj = obj.weather[0];
+    let img = document.createElement('img');
+    let iconID = weatherObj.icon;
+    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`)
+    let weatherHeader = document.createElement('h6');
+    weatherHeader.textContent = `${weatherObj.description}`;
+    weatherContainer.appendChild(img);
+    weatherContainer.appendChild(weatherHeader);
+    return obj;
+}
+
+
+// ===============================================
+// Draw all data 
+// ===============================================
+function getWeather(lat, long) {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
+        .then(r => r.json())
+        .then(drawName)
+        .then(drawTemp)
+        .then(weather);
+}
 
 
 

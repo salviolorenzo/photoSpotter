@@ -38,9 +38,11 @@ h1 {
     min-height: 300px;
 }
 
-.map{
+.map, .weather{
     height: 100%;
     width: 100%;
     min-height: 300px;
 }
+
+
 
