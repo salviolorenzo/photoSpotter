@@ -7,7 +7,8 @@
 
 const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
-
+const mapContainer = document.querySelector('[data-map]');
+const weatherContainer = document.querySelector('[data-weather]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -40,7 +41,7 @@ function getPhotoStats(obj) {
             locationArray.forEach(function (location, index) {
                 statArray[index]['location'] = location;
             });
-            console.log(statArray.slice(0, 20));
+            // console.log(statArray.slice(0, 20));
             return statArray.slice(0, 20);
         });
 }
@@ -62,38 +63,50 @@ searchForm.addEventListener("submit", handleSubmit);
 // moves image sources into a new array, change image on key press
 // ======================================================
 
-function drawImages(array) {
-    let srcArray = [];
-    for (item of array) {
-        srcArray.push(item.src);
-    }
-    let index = 0;
-    galleryImage.src = srcArray[index];
 
-    console.log(srcArray);
-    console.log(galleryImage.src);
+function drawImages(array) {
+    // let srcArray = [];
+    // for (item of array) {
+    //     srcArray.push(item.src);
+    // }
+    let index = 0;
+    galleryImage.src = array[index].src;
+
+    // console.log(array);
+    // console.log(galleryImage.src);
 
     window.addEventListener('keydown', function (event) {
         if (event.keyCode === 39) {
             console.log('right');
             index += 1;
-            if (index > srcArray.length - 1) {
+            if (index > array.length - 1) {
                 index = 0;
             }
-            galleryImage.src = srcArray[index];
+            galleryImage.src = array[index].src;
+
         }
         else if (event.keyCode === 37) {
             console.log('left');
             index -= 1;
             if (index < 0) {
-                index = srcArray.length - 1;
+                index = array.length - 1;
             }
-            galleryImage.src = srcArray[index];
+            galleryImage.src = array[index].src;
+
         }
     })
+    galleryImage.addEventListener('click', function () {
+        let latitude = parseFloat(array[index].latitude);
+        let longitude = parseFloat(array[index].longitude);
+        addMarker(latitude, longitude);
+        getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
+    });
     return array;
 }
 
+// ==================================================
+// Extracts lat and long attributes from location
+// ==================================================
 
 function locationsArray(array) {
     for (item of array) {
@@ -112,6 +125,75 @@ function getPhotos(userSearch) {
         .then(r => r.json())
         .then(j => j.photos)
         .then(getPhotoStats)
-        .then(drawImages)
-        .then(locationsArray);
+        .then(locationsArray)
+        .then(drawImages);
 }
+
+//==========================================================
+// Maps API Functions
+// ============================================================
+
+let map;
+function initMap() {
+    let myLatLng = { 'lat': 0, 'lng': 0 };
+
+    map = new google.maps.Map(mapContainer, {
+        center: myLatLng,
+        zoom: 2
+    });
+
+}
+
+function addMarker(lat, long) {
+    let marker = new google.maps.Marker({
+        position: { 'lat': lat, 'lng': long },
+        map: map
+    })
+    map.center = marker.position;
+}
+
+//==========================================================
+// Weather API Functions
+// ============================================================
+function drawName(obj) {
+    let cityName = document.createElement('h3');
+    cityName.textContent = obj.name;
+    weatherContainer.appendChild(cityName);
+    return obj;
+}
+
+function drawTemp(obj) {
+    let temperature = document.createElement('p');
+    let temp = obj.main.temp;
+    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+    temperature.textContent = `Temperature: ${temp} °F`;
+    weatherContainer.appendChild(temperature);
+    return obj;
+}
+
+function weather(obj) {
+    let weatherObj = obj.weather[0];
+    let img = document.createElement('img');
+    let iconID = weatherObj.icon;
+    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`)
+    let weatherHeader = document.createElement('h6');
+    weatherHeader.textContent = `${weatherObj.description}`;
+    weatherContainer.appendChild(img);
+    weatherContainer.appendChild(weatherHeader);
+    return obj;
+}
+
+
+// ===============================================
+// Draw all data 
+// ===============================================
+function getWeather(lat, long) {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
+        .then(r => r.json())
+        .then(drawName)
+        .then(drawTemp)
+        .then(weather);
+}
+
+
+
