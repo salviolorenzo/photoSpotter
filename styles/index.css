@@ -15,7 +15,14 @@ html, body{
     padding: 0;
 }
 
-.landing {
+h1 {
+    text-align: center;
+    font-family: 'Fahkwang', sans-serif;
+    color: darkseagreen;
+
+}
+
+.landing{
     background-image: url(../images/adventure-attraction-blurry-618545\ \(1\).jpg);
     background-repeat: no-repeat;
     background-position: top center;
