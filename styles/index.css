@@ -31,6 +31,7 @@ h1 {
     padding: 0;
     display: flex;
     justify-content: space-around;
+    border-bottom: 1px solid powderblue;
     
 }
 
@@ -133,12 +134,25 @@ color: springgreen;
     height: 100%;
     width: 100%;
     min-height: 300px;
-    
+    padding: 10px;
+    margin: 10px;
     
 }
+
+.weather {
+    background-color: azure;
+    
+}
+
 
 @media only screen and (max-width: 560px) {
     .modal-content {
         width: 100%;
+    }
+
+    .map-weather {
+    width: 100%;
+    min-height: 300px;
+    display: block;
     }
 }
