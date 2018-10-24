@@ -165,36 +165,47 @@ function addMarker(lat, long) {
 // ============================================================
 function drawName(obj) {
     let cityName;
-    if (cityName === undefined) {
-        cityName = document.createElement('h3');
-        cityName.textContent = obj.name;
-    }
-    else {
-        cityName.textContent = obj.name;
-    }
+    cityName = document.createElement('h3');
+    cityName.textContent = obj.name;
     weatherContainer.appendChild(cityName);
     return obj;
 }
 
+// function drawTime(obj) {
+//     const sunrise = obj.sys.sunrise;
+//     const sunset = obj.sys.sunset;
+//     let riseBox = document.createElement('p');
+//     let setBox = document.createElement('p');
+//     let myRise = new Date(sunrise * 1000);
+//     myRise = myRise + myRise.getTimezoneOffset();
+//     let mySet = new Date(sunset * 1000);
+//     mySet = mySet + mySet.getTimezoneOffset();
+//     riseBox.textContent = `Sunrise: ${myRise.toLocaleString()}`;
+//     setBox.textContent = `Sunset: ${mySet.toLocaleString()}`;
+//     weatherContainer.appendChild(riseBox);
+//     weatherContainer.appendChild(setBox);
+//     return obj;
+// }
+
 function drawTemp(obj) {
-    let temperature;
-    if (temperature !== undefined) {
-        let temp = obj.main.temp;
-        temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
-        temperature.textContent = `Temperature: ${temp} °F`;
-    }
-    else {
-        temperature = document.createElement('p');
-        let temp = obj.main.temp;
-        temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
-        temperature.textContent = `Temperature: ${temp} °F`;
-    }
+    let temperature = document.createElement('p');
+    let temp = obj.main.temp;
+    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+    temperature.textContent = `Temperature: ${temp} °F`;
     weatherContainer.appendChild(temperature);
     return obj;
 }
 
+function getWind(obj) {
+    let windSpeed = obj.wind.speed
+    let windDeg = obj.wind.deg
+    const wind = document.createElement('p');
+    wind.textContent = `Wind Speed: ${windSpeed}, Direction: ${windDeg}.`
+    weatherContainer.appendChild(wind);
+    return obj;
+}
+
 function weather(obj) {
-    const iconArray = [];
     let weatherObj = obj.weather[0];
     let iconID = weatherObj.icon;
     let img = document.createElement('img');
@@ -215,7 +226,9 @@ function getWeather(lat, long) {
     fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
         .then(r => r.json())
         .then(drawName)
+        // .then(drawTime)
         .then(drawTemp)
+        .then(getWind)
         .then(weather);
 }
 
