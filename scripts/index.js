@@ -5,11 +5,15 @@
 // when image is clicked ==> place point on map and display weather ==>
 // show location info?
 
+const gallery = document.querySelector('[data-gallery]');
 const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
 const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
 const infoContainer = document.querySelector('[data-info-container]');
+const contact = document.querySelector('[data-contacts]');
+const lorenzoLinks = document.querySelector('[data-link-list1]');
+const ameliaLinks = document.querySelector('[data-link-list2]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -193,6 +197,7 @@ function getExif(object) {
             }
             else if (item.tag === 'DateTimeOriginal') {
                 time = item.raw._content;
+                time = time.split(' ').join(' // ')
             }
             else {
                 continue;
@@ -258,6 +263,7 @@ function drawImages(array) {
     // for (item of array) {
     //     srcArray.push(item.src);
     // }
+    gallery.classList.remove('gallery-hidden');
     let index = 0;
     galleryImage.src = array[index].src;
 
@@ -305,3 +311,13 @@ function getPhotos(userSearch) {
         .then(locationsArray)
         .then(drawImages);
 }
+
+contact.addEventListener('mouseover', function () {
+    lorenzoLinks.classList.remove('our-links-hidden');
+    ameliaLinks.classList.remove('our-links-hidden');
+})
+
+contact.addEventListener('mouseout', function () {
+    lorenzoLinks.classList.add('our-links-hidden');
+    ameliaLinks.classList.add('our-links-hidden');
+})
