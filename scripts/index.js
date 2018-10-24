@@ -92,7 +92,6 @@ function drawImages(array) {
                 index = array.length - 1;
             }
             galleryImage.src = array[index].src;
-
         }
     })
     galleryImage.addEventListener('click', function () {
@@ -135,49 +134,74 @@ function getPhotos(userSearch) {
 
 let map;
 function initMap() {
-    let myLatLng = { 'lat': 0, 'lng': 0 };
+    let myLatLng = { 'lat': 50, 'lng': -25 };
 
     map = new google.maps.Map(mapContainer, {
         center: myLatLng,
-        zoom: 2
+        zoom: 1
     });
 
 }
 
+let markerArray = [];
 function addMarker(lat, long) {
     let marker = new google.maps.Marker({
         position: { 'lat': lat, 'lng': long },
-        map: map
-    })
-    map.center = marker.position;
+    });
+    if (markerArray.length === 0) {
+        markerArray.push(marker);
+    }
+    else if (markerArray.length > 0) {
+        markerArray[0].setMap(null);
+        markerArray.shift();
+        markerArray.push(marker);
+        console.log()
+    }
+    markerArray[0].setMap(map);
 }
 
 //==========================================================
 // Weather API Functions
 // ============================================================
 function drawName(obj) {
-    let cityName = document.createElement('h3');
-    cityName.textContent = obj.name;
+    let cityName;
+    if (cityName === undefined) {
+        cityName = document.createElement('h3');
+        cityName.textContent = obj.name;
+    }
+    else {
+        cityName.textContent = obj.name;
+    }
     weatherContainer.appendChild(cityName);
     return obj;
 }
 
 function drawTemp(obj) {
-    let temperature = document.createElement('p');
-    let temp = obj.main.temp;
-    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
-    temperature.textContent = `Temperature: ${temp} °F`;
+    let temperature;
+    if (temperature !== undefined) {
+        let temp = obj.main.temp;
+        temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+        temperature.textContent = `Temperature: ${temp} °F`;
+    }
+    else {
+        temperature = document.createElement('p');
+        let temp = obj.main.temp;
+        temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+        temperature.textContent = `Temperature: ${temp} °F`;
+    }
     weatherContainer.appendChild(temperature);
     return obj;
 }
 
 function weather(obj) {
+    const iconArray = [];
     let weatherObj = obj.weather[0];
-    let img = document.createElement('img');
     let iconID = weatherObj.icon;
-    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`)
+    let img = document.createElement('img');
     let weatherHeader = document.createElement('h6');
+    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
     weatherHeader.textContent = `${weatherObj.description}`;
+
     weatherContainer.appendChild(img);
     weatherContainer.appendChild(weatherHeader);
     return obj;
