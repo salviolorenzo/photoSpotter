@@ -150,4 +150,10 @@ color: springgreen;
     .modal-content {
         width: 100%;
     }
+
+    .map-weather {
+    width: 100%;
+    min-height: 300px;
+    display: block;
+    }
 }
