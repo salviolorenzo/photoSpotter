@@ -27,7 +27,7 @@ h1 {
 }
 /* evenly spaces nav bar at any size */
 .nav-container {
-    margin: 0 2px;
+    /* margin: 0 2px; */
     padding: 0;
     display: flex;
     justify-content: space-around;
@@ -37,7 +37,7 @@ h1 {
 
 .nav-link {
     text-decoration: none;
-    margin-right: 18px;
+    /* margin-right: 18px; */
     color: black;
 }
 
@@ -135,15 +135,40 @@ color: springgreen;
     width: 100%;
     min-height: 300px;
     padding: 10px;
-    margin: 10px;
-    
+    margin: 10px 0;
+
 }
 
 .weather {
     background-color: azure;
+    text-align: center;
     
 }
 
+.weather-hidden{
+    display:none;
+}
+
+.image-info{
+    display: flex;
+    justify-content: center;
+}
+
+.image-info ul{
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
+}
+
+.image-info li{
+    padding: 5px 0;
+}
+
+footer{
+    display: flex;
+    justify-content: center;
+    color: rgb(157, 157, 157)
+}
 
 @media only screen and (max-width: 560px) {
     .modal-content {

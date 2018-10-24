@@ -136,15 +136,18 @@ function weather(obj) {
     let weatherObj = obj.weather[0];
     let iconID = weatherObj.icon;
     let img = document.createElement('img');
+    let h3 = document.createElement('h3');
+    h3.textContent = `Today's Weather: `
     let weatherHeader = document.createElement('h5');
     img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
     weatherHeader.textContent = `${capitalize(weatherObj.description)}`;
-
+    currentDiv.appendChild(h3);
     currentDiv.appendChild(drawName(obj));
-    currentDiv.appendChild(img)
+    currentDiv.appendChild(img);
     currentDiv.appendChild(weatherHeader);
     currentDiv.appendChild(drawTemp(obj));
     currentDiv.appendChild(getClouds(obj));
+    weatherContainer.classList.remove('weather-hidden');
     weatherContainer.appendChild(currentDiv);
     return obj;
 }
@@ -219,7 +222,7 @@ function drawInfo(object) {
         const infoList = document.createElement('ul');
         let item1 = document.createElement('li');
         let item2 = document.createElement('li');
-        item1.textContent = `Date, Time: ${object.time}`;
+        item1.textContent = `Date/Time of Photo: ${object.time}`;
         item2.textContent = `Camera: ${object.camera}`;
         infoList.appendChild(item1);
         infoList.appendChild(item2);
