@@ -166,9 +166,8 @@ function addMarker(lat, long) {
 function drawName(obj) {
     let cityName;
     cityName = document.createElement('h3');
-    cityName.textContent = obj.name;
-    weatherContainer.appendChild(cityName);
-    return obj;
+    cityName.textContent = `${obj.name}, ${obj.sys.country}`;
+    return cityName
 }
 
 // function drawTime(obj) {
@@ -192,29 +191,46 @@ function drawTemp(obj) {
     let temp = obj.main.temp;
     temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
     temperature.textContent = `Temperature: ${temp} °F`;
-    weatherContainer.appendChild(temperature);
-    return obj;
+    return temperature;
 }
 
-function getWind(obj) {
-    let windSpeed = obj.wind.speed
-    let windDeg = obj.wind.deg
-    const wind = document.createElement('p');
-    wind.textContent = `Wind Speed: ${windSpeed}, Direction: ${windDeg}.`
-    weatherContainer.appendChild(wind);
-    return obj;
+function getClouds(obj) {
+    let clouds = obj.clouds.all
+    const cloud = document.createElement('p');
+    cloud.textContent = `Cloudiness: ${clouds} %.`
+    return cloud;
+}
+
+function capitalize(string) {
+    arr = string.split(' ');
+    for (item of arr) {
+        let index = arr.indexOf(item);
+        let first = item.charAt(0).toUpperCase();
+        item = first + item.slice(1);
+        arr[index] = item;
+    }
+    return arr.join(' ');
 }
 
 function weather(obj) {
+    if (weatherContainer.hasChildNodes()) {
+        weatherContainer.removeChild(weatherContainer.firstChild);
+    }
+    let currentDiv = document.createElement('div');
     let weatherObj = obj.weather[0];
     let iconID = weatherObj.icon;
     let img = document.createElement('img');
-    let weatherHeader = document.createElement('h6');
+    let weatherHeader = document.createElement('h5');
     img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
-    weatherHeader.textContent = `${weatherObj.description}`;
+    weatherHeader.textContent = `${capitalize(weatherObj.description)}`;
 
-    weatherContainer.appendChild(img);
-    weatherContainer.appendChild(weatherHeader);
+
+    currentDiv.appendChild(drawName(obj));
+    currentDiv.appendChild(img)
+    currentDiv.appendChild(weatherHeader);
+    currentDiv.appendChild(drawTemp(obj));
+    currentDiv.appendChild(getClouds(obj));
+    weatherContainer.appendChild(currentDiv);
     return obj;
 }
 
@@ -225,10 +241,6 @@ function weather(obj) {
 function getWeather(lat, long) {
     fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
         .then(r => r.json())
-        .then(drawName)
-        // .then(drawTime)
-        .then(drawTemp)
-        .then(getWind)
         .then(weather);
 }
 
