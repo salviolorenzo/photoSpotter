@@ -112,6 +112,8 @@ color: springgreen;
     transition: 0.3s;
 }
 
+#myImg:hover {opacity: 0.7}
+
 .modal {
     text-align: center;
     /* position: fixed; */
@@ -120,5 +122,6 @@ color: springgreen;
     /* transform: translate(-50%, -50%); */
     
     
+}
 }
  
