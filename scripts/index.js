@@ -9,6 +9,7 @@ const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
 const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
+const infoContainer = document.querySelector('[data-info-container]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -46,63 +47,6 @@ function getPhotoStats(obj) {
         });
 }
 
-// ======================================================
-// handles submit, creates keyword search
-// ======================================================
-
-function handleSubmit(event) {
-    event.preventDefault();
-    console.log("Searching");
-    let userSearch = event.target.elements.search.value;
-    getPhotos(userSearch);
-}
-searchForm.addEventListener("submit", handleSubmit);
-
-
-// ======================================================
-// moves image sources into a new array, change image on key press
-// ======================================================
-
-
-function drawImages(array) {
-    // let srcArray = [];
-    // for (item of array) {
-    //     srcArray.push(item.src);
-    // }
-    let index = 0;
-    galleryImage.src = array[index].src;
-
-    // console.log(array);
-    // console.log(galleryImage.src);
-
-    window.addEventListener('keydown', function (event) {
-        if (event.keyCode === 39) {
-            console.log('right');
-            index += 1;
-            if (index > array.length - 1) {
-                index = 0;
-            }
-            galleryImage.src = array[index].src;
-
-        }
-        else if (event.keyCode === 37) {
-            console.log('left');
-            index -= 1;
-            if (index < 0) {
-                index = array.length - 1;
-            }
-            galleryImage.src = array[index].src;
-        }
-    })
-    galleryImage.addEventListener('click', function () {
-        let latitude = parseFloat(array[index].latitude);
-        let longitude = parseFloat(array[index].longitude);
-        addMarker(latitude, longitude);
-        getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
-    });
-    return array;
-}
-
 // ==================================================
 // Extracts lat and long attributes from location
 // ==================================================
@@ -114,18 +58,6 @@ function locationsArray(array) {
         delete item.location;
     }
     return array;
-}
-
-//==========================================================
-// retrieves images, calls functions to manipulate data and draw to screen
-// ============================================================
-function getPhotos(userSearch) {
-    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&sort=interestingness-desc&privacy_filter=1&accuracy=16+&has_geo=1&format=json&nojsoncallback=1`)
-        .then(r => r.json())
-        .then(j => j.photos)
-        .then(getPhotoStats)
-        .then(locationsArray)
-        .then(drawImages);
 }
 
 //==========================================================
@@ -170,22 +102,6 @@ function drawName(obj) {
     return cityName
 }
 
-// function drawTime(obj) {
-//     const sunrise = obj.sys.sunrise;
-//     const sunset = obj.sys.sunset;
-//     let riseBox = document.createElement('p');
-//     let setBox = document.createElement('p');
-//     let myRise = new Date(sunrise * 1000);
-//     myRise = myRise + myRise.getTimezoneOffset();
-//     let mySet = new Date(sunset * 1000);
-//     mySet = mySet + mySet.getTimezoneOffset();
-//     riseBox.textContent = `Sunrise: ${myRise.toLocaleString()}`;
-//     setBox.textContent = `Sunset: ${mySet.toLocaleString()}`;
-//     weatherContainer.appendChild(riseBox);
-//     weatherContainer.appendChild(setBox);
-//     return obj;
-// }
-
 function drawTemp(obj) {
     let temperature = document.createElement('p');
     let temp = obj.main.temp;
@@ -224,7 +140,6 @@ function weather(obj) {
     img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
     weatherHeader.textContent = `${capitalize(weatherObj.description)}`;
 
-
     currentDiv.appendChild(drawName(obj));
     currentDiv.appendChild(img)
     currentDiv.appendChild(weatherHeader);
@@ -234,9 +149,8 @@ function weather(obj) {
     return obj;
 }
 
-
 // ===============================================
-// Draw all data 
+// Draw all weather data data 
 // ===============================================
 function getWeather(lat, long) {
     fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
@@ -244,5 +158,119 @@ function getWeather(lat, long) {
         .then(weather);
 }
 
+// ======================================================
+// handles submit, creates keyword search
+// ======================================================
+
+function handleSubmit(event) {
+    event.preventDefault();
+    console.log("Searching");
+    let userSearch = event.target.elements.search.value;
+    getPhotos(userSearch);
+}
+searchForm.addEventListener("submit", handleSubmit);
+
+// =======================================================
+// get photo information
+// =======================================================
+function getInfo(object) {
+    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${flickKey}&format=json&nojsoncallback=1&photo_id=${object.id}`)
+        .then(r => r.json())
+        .then(j => j.photo)
+        .then(getExif)
+        .then(drawInfo);
+}
+
+function getExif(object) {
+    const array = object.exif;
+    let time;
+    let camera;
+    for (item of array) {
+        if (item.tag === 'Model') {
+            camera = item.raw._content;
+        }
+        else if (item.tag === 'DateTimeOriginal') {
+            time = item.raw._content;
+        }
+        else {
+            continue;
+        }
+    }
+    let exifObject = {
+        'time': time,
+        'camera': camera
+    }
+    return exifObject;
+}
+
+function drawInfo(object) {
+    if (infoContainer.hasChildNodes()) {
+        infoContainer.removeChild(infoContainer.firstChild);
+    }
+    const infoList = document.createElement('ul');
+    let item1 = document.createElement('li');
+    let item2 = document.createElement('li');
+    item1.textContent = `Date/Time: ${object.time}`;
+    item2.textContent = `Camera: ${object.camera}`;
+    infoList.appendChild(item1);
+    infoList.appendChild(item2);
+    infoContainer.appendChild(infoList);
+}
+
+// ======================================================
+// moves image sources into a new array, change image on key press
+// ======================================================
 
 
+function drawImages(array) {
+    // let srcArray = [];
+    // for (item of array) {
+    //     srcArray.push(item.src);
+    // }
+    let index = 0;
+    galleryImage.src = array[index].src;
+
+    // console.log(array);
+    // console.log(galleryImage.src);
+
+    window.addEventListener('keydown', function (event) {
+        if (event.keyCode === 39) {
+            console.log('right');
+            index += 1;
+            if (index > array.length - 1) {
+                index = 0;
+            }
+            galleryImage.src = array[index].src;
+
+        }
+        else if (event.keyCode === 37) {
+            console.log('left');
+            index -= 1;
+            if (index < 0) {
+                index = array.length - 1;
+            }
+            galleryImage.src = array[index].src;
+        }
+    })
+    galleryImage.addEventListener('click', function () {
+        let latitude = parseFloat(array[index].latitude);
+        let longitude = parseFloat(array[index].longitude);
+        addMarker(latitude, longitude);
+        getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
+        getInfo(array[index]);
+
+    });
+    return array;
+}
+
+//==========================================================
+// retrieves images, calls functions to manipulate data and draw to screen
+// ============================================================
+function getPhotos(userSearch) {
+    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${flickKey}&text=${userSearch}&sort=interestingness-desc&privacy_filter=1&accuracy=16+&has_geo=1&format=json&nojsoncallback=1`)
+        .then(r => r.json())
+        .then(j => j.photos)
+        .then(getPhotoStats)
+        .then(locationsArray)
+        .then(drawImages);
+}
