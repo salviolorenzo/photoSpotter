@@ -76,6 +76,7 @@ h2 {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     font-size: 24px;
     text-shadow: none;
+    cursor: pointer;
 
 
 }
@@ -95,16 +96,7 @@ color: springgreen;
 }
 
 
-.map-weather{
-    width: 100%;
-    min-height: 300px;
-}
 
-.map, .weather{
-    height: 100%;
-    width: 100%;
-    min-height: 300px;
-}
 
 #myImg {
     border-radius: 5px;
@@ -124,10 +116,28 @@ color: springgreen;
     
 }
 
+.modal-content {
+    margin: auto;
+  
+}
 
+.map-weather{
+    width: 100%;
+    min-height: 300px;
+}
+
+.map, .weather{
+    height: 100%;
+    width: 100%;
+    min-height: 300px;
+}
+
+.map {
+    margin: 10px ;
+}
  
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 560px) {
     .modal-content {
         width: 100%;
     }
