@@ -31,6 +31,7 @@ h1 {
     padding: 0;
     display: flex;
     justify-content: space-around;
+    border-bottom: 1px solid powderblue;
     
 }
 
