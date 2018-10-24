@@ -102,16 +102,15 @@ color: springgreen;
     border-radius: 5px;
     cursor: pointer;
     transition: 0.3s;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #myImg:hover {opacity: 0.7}
 
 .modal {
     text-align: center;
-    /* position: fixed; */
-    /* top: 50%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
+   
     
     
 }
@@ -124,19 +123,25 @@ color: springgreen;
 .map-weather{
     width: 100%;
     min-height: 300px;
+    display: flex;
+
+   
+    
 }
 
 .map, .weather{
     height: 100%;
     width: 100%;
     min-height: 300px;
+    
+    
 }
 
-.map {
-    margin: 10px ;
-}
+/* .map { */
+    /* margin: 10px ; */
+/* } */
  
-
+/* makes image fill screen at phone size */
 @media only screen and (max-width: 560px) {
     .modal-content {
         width: 100%;
