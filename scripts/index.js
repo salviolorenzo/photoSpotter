@@ -171,6 +171,70 @@ function handleSubmit(event) {
 searchForm.addEventListener("submit", handleSubmit);
 
 // =======================================================
+// IMAGES INFORMATION
+// =======================================================
+
+
+// =======================================================
+// extract time and camera type
+// ======================================================
+function getExif(object) {
+    let exifObject;
+    if (object !== undefined) {
+        const array = object.exif;
+        let time;
+        let camera;
+        for (item of array) {
+            if (item.tag === 'Model') {
+                camera = item.raw._content;
+            }
+            else if (item.tag === 'DateTimeOriginal') {
+                time = item.raw._content;
+            }
+            else {
+                continue;
+            }
+        }
+        exifObject = {
+            'time': time,
+            'camera': camera
+        }
+    }
+    else {
+        exifObject = "Metadata not available."
+    }
+    return exifObject;
+}
+
+
+// =======================================================
+// draw time and type to screen
+// ======================================================
+function drawInfo(object) {
+
+    if (infoContainer.hasChildNodes()) {
+        infoContainer.removeChild(infoContainer.firstChild);
+    }
+    if (object !== "Metadata not available.") {
+        const infoList = document.createElement('ul');
+        let item1 = document.createElement('li');
+        let item2 = document.createElement('li');
+        item1.textContent = `Date, Time: ${object.time}`;
+        item2.textContent = `Camera: ${object.camera}`;
+        infoList.appendChild(item1);
+        infoList.appendChild(item2);
+        infoContainer.appendChild(infoList);
+    }
+    else {
+        const infoList = document.createElement('ul');
+        let item1 = document.createElement('li');
+        item1.textContent = object;
+        infoList.appendChild(item1);
+        infoContainer.appendChild(infoList);
+    }
+}
+
+// =======================================================
 // get photo information
 // =======================================================
 function getInfo(object) {
@@ -179,42 +243,6 @@ function getInfo(object) {
         .then(j => j.photo)
         .then(getExif)
         .then(drawInfo);
-}
-
-function getExif(object) {
-    const array = object.exif;
-    let time;
-    let camera;
-    for (item of array) {
-        if (item.tag === 'Model') {
-            camera = item.raw._content;
-        }
-        else if (item.tag === 'DateTimeOriginal') {
-            time = item.raw._content;
-        }
-        else {
-            continue;
-        }
-    }
-    let exifObject = {
-        'time': time,
-        'camera': camera
-    }
-    return exifObject;
-}
-
-function drawInfo(object) {
-    if (infoContainer.hasChildNodes()) {
-        infoContainer.removeChild(infoContainer.firstChild);
-    }
-    const infoList = document.createElement('ul');
-    let item1 = document.createElement('li');
-    let item2 = document.createElement('li');
-    item1.textContent = `Date/Time: ${object.time}`;
-    item2.textContent = `Camera: ${object.camera}`;
-    infoList.appendChild(item1);
-    infoList.appendChild(item2);
-    infoContainer.appendChild(infoList);
 }
 
 // ======================================================
