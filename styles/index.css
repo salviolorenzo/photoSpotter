@@ -144,8 +144,7 @@ color: springgreen;
     
 }
 
- 
-/* makes image fill screen at phone size */
+
 @media only screen and (max-width: 560px) {
     .modal-content {
         width: 100%;

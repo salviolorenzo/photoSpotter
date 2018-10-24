@@ -9,6 +9,7 @@ const galleryImage = document.querySelector('[data-image]');
 const searchForm = document.querySelector('[data-form]');
 const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
+const infoContainer = document.querySelector('[data-info-container]');
 // ========================================
 //returns array of image promises
 // ========================================
@@ -46,6 +47,117 @@ function getPhotoStats(obj) {
         });
 }
 
+// ==================================================
+// Extracts lat and long attributes from location
+// ==================================================
+
+function locationsArray(array) {
+    for (item of array) {
+        item.latitude = item.location.latitude;
+        item.longitude = item.location.longitude;
+        delete item.location;
+    }
+    return array;
+}
+
+//==========================================================
+// Maps API Functions
+// ============================================================
+
+let map;
+function initMap() {
+    let myLatLng = { 'lat': 50, 'lng': -25 };
+
+    map = new google.maps.Map(mapContainer, {
+        center: myLatLng,
+        zoom: 1
+    });
+
+}
+
+let markerArray = [];
+function addMarker(lat, long) {
+    let marker = new google.maps.Marker({
+        position: { 'lat': lat, 'lng': long },
+    });
+    if (markerArray.length === 0) {
+        markerArray.push(marker);
+    }
+    else if (markerArray.length > 0) {
+        markerArray[0].setMap(null);
+        markerArray.shift();
+        markerArray.push(marker);
+        console.log()
+    }
+    markerArray[0].setMap(map);
+}
+
+//==========================================================
+// Weather API Functions
+// ============================================================
+function drawName(obj) {
+    let cityName;
+    cityName = document.createElement('h3');
+    cityName.textContent = `${obj.name}, ${obj.sys.country}`;
+    return cityName
+}
+
+function drawTemp(obj) {
+    let temperature = document.createElement('p');
+    let temp = obj.main.temp;
+    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
+    temperature.textContent = `Temperature: ${temp} °F`;
+    return temperature;
+}
+
+function getClouds(obj) {
+    let clouds = obj.clouds.all
+    const cloud = document.createElement('p');
+    cloud.textContent = `Cloudiness: ${clouds} %.`
+    return cloud;
+}
+
+function capitalize(string) {
+    arr = string.split(' ');
+    for (item of arr) {
+        let index = arr.indexOf(item);
+        let first = item.charAt(0).toUpperCase();
+        item = first + item.slice(1);
+        arr[index] = item;
+    }
+    return arr.join(' ');
+}
+
+function weather(obj) {
+    if (weatherContainer.hasChildNodes()) {
+        weatherContainer.removeChild(weatherContainer.firstChild);
+    }
+    let currentDiv = document.createElement('div');
+    let weatherObj = obj.weather[0];
+    let iconID = weatherObj.icon;
+    let img = document.createElement('img');
+    let weatherHeader = document.createElement('h5');
+    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
+    weatherHeader.textContent = `${capitalize(weatherObj.description)}`;
+
+    currentDiv.appendChild(drawName(obj));
+    currentDiv.appendChild(img)
+    currentDiv.appendChild(weatherHeader);
+    currentDiv.appendChild(drawTemp(obj));
+    currentDiv.appendChild(getClouds(obj));
+    weatherContainer.appendChild(currentDiv);
+    return obj;
+}
+
+// ===============================================
+// Draw all weather data data 
+// ===============================================
+function getWeather(lat, long) {
+    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
+        .then(r => r.json())
+        .then(weather);
+}
+
 // ======================================================
 // handles submit, creates keyword search
 // ======================================================
@@ -58,6 +170,80 @@ function handleSubmit(event) {
 }
 searchForm.addEventListener("submit", handleSubmit);
 
+// =======================================================
+// IMAGES INFORMATION
+// =======================================================
+
+
+// =======================================================
+// extract time and camera type
+// ======================================================
+function getExif(object) {
+    let exifObject;
+    if (object !== undefined) {
+        const array = object.exif;
+        let time;
+        let camera;
+        for (item of array) {
+            if (item.tag === 'Model') {
+                camera = item.raw._content;
+            }
+            else if (item.tag === 'DateTimeOriginal') {
+                time = item.raw._content;
+            }
+            else {
+                continue;
+            }
+        }
+        exifObject = {
+            'time': time,
+            'camera': camera
+        }
+    }
+    else {
+        exifObject = "Metadata not available."
+    }
+    return exifObject;
+}
+
+
+// =======================================================
+// draw time and type to screen
+// ======================================================
+function drawInfo(object) {
+
+    if (infoContainer.hasChildNodes()) {
+        infoContainer.removeChild(infoContainer.firstChild);
+    }
+    if (object !== "Metadata not available.") {
+        const infoList = document.createElement('ul');
+        let item1 = document.createElement('li');
+        let item2 = document.createElement('li');
+        item1.textContent = `Date, Time: ${object.time}`;
+        item2.textContent = `Camera: ${object.camera}`;
+        infoList.appendChild(item1);
+        infoList.appendChild(item2);
+        infoContainer.appendChild(infoList);
+    }
+    else {
+        const infoList = document.createElement('ul');
+        let item1 = document.createElement('li');
+        item1.textContent = object;
+        infoList.appendChild(item1);
+        infoContainer.appendChild(infoList);
+    }
+}
+
+// =======================================================
+// get photo information
+// =======================================================
+function getInfo(object) {
+    fetch(`https://api.flickr.com/services/rest/?method=flickr.photos.getExif&api_key=${flickKey}&format=json&nojsoncallback=1&photo_id=${object.id}`)
+        .then(r => r.json())
+        .then(j => j.photo)
+        .then(getExif)
+        .then(drawInfo);
+}
 
 // ======================================================
 // moves image sources into a new array, change image on key press
@@ -99,20 +285,9 @@ function drawImages(array) {
         let longitude = parseFloat(array[index].longitude);
         addMarker(latitude, longitude);
         getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
+        getInfo(array[index]);
+
     });
-    return array;
-}
-
-// ==================================================
-// Extracts lat and long attributes from location
-// ==================================================
-
-function locationsArray(array) {
-    for (item of array) {
-        item.latitude = item.location.latitude;
-        item.longitude = item.location.longitude;
-        delete item.location;
-    }
     return array;
 }
 
@@ -127,110 +302,3 @@ function getPhotos(userSearch) {
         .then(locationsArray)
         .then(drawImages);
 }
-
-//==========================================================
-// Maps API Functions
-// ============================================================
-
-let map;
-function initMap() {
-    let myLatLng = { 'lat': 50, 'lng': -25 };
-
-    map = new google.maps.Map(mapContainer, {
-        center: myLatLng,
-        zoom: 1
-    });
-
-}
-
-let markerArray = [];
-function addMarker(lat, long) {
-    let marker = new google.maps.Marker({
-        position: { 'lat': lat, 'lng': long },
-    });
-    if (markerArray.length === 0) {
-        markerArray.push(marker);
-    }
-    else if (markerArray.length > 0) {
-        markerArray[0].setMap(null);
-        markerArray.shift();
-        markerArray.push(marker);
-        console.log()
-    }
-    markerArray[0].setMap(map);
-}
-
-//==========================================================
-// Weather API Functions
-// ============================================================
-function drawName(obj) {
-    let cityName;
-    cityName = document.createElement('h3');
-    cityName.textContent = obj.name;
-    weatherContainer.appendChild(cityName);
-    return obj;
-}
-
-// function drawTime(obj) {
-//     const sunrise = obj.sys.sunrise;
-//     const sunset = obj.sys.sunset;
-//     let riseBox = document.createElement('p');
-//     let setBox = document.createElement('p');
-//     let myRise = new Date(sunrise * 1000);
-//     myRise = myRise + myRise.getTimezoneOffset();
-//     let mySet = new Date(sunset * 1000);
-//     mySet = mySet + mySet.getTimezoneOffset();
-//     riseBox.textContent = `Sunrise: ${myRise.toLocaleString()}`;
-//     setBox.textContent = `Sunset: ${mySet.toLocaleString()}`;
-//     weatherContainer.appendChild(riseBox);
-//     weatherContainer.appendChild(setBox);
-//     return obj;
-// }
-
-function drawTemp(obj) {
-    let temperature = document.createElement('p');
-    let temp = obj.main.temp;
-    temp = ((temp - 273.15) * 9 / 5 + 32).toFixed(1);
-    temperature.textContent = `Temperature: ${temp} °F`;
-    weatherContainer.appendChild(temperature);
-    return obj;
-}
-
-function getWind(obj) {
-    let windSpeed = obj.wind.speed
-    let windDeg = obj.wind.deg
-    const wind = document.createElement('p');
-    wind.textContent = `Wind Speed: ${windSpeed}, Direction: ${windDeg}.`
-    weatherContainer.appendChild(wind);
-    return obj;
-}
-
-function weather(obj) {
-    let weatherObj = obj.weather[0];
-    let iconID = weatherObj.icon;
-    let img = document.createElement('img');
-    let weatherHeader = document.createElement('h6');
-    img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
-    weatherHeader.textContent = `${weatherObj.description}`;
-
-    weatherContainer.appendChild(img);
-    weatherContainer.appendChild(weatherHeader);
-    return obj;
-}
-
-
-// ===============================================
-// Draw all data 
-// ===============================================
-function getWeather(lat, long) {
-    fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&APPID=${OWKey}`)
-        .then(r => r.json())
-        .then(drawName)
-        // .then(drawTime)
-        .then(drawTemp)
-        .then(getWind)
-        .then(weather);
-}
-
-
-
