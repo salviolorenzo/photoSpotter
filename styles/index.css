@@ -7,6 +7,15 @@
     }
 }
 
+@keyframes slidedown{
+    from{
+        height: 0;
+    }
+    to{
+        height: 100%;
+    }
+}
+
 /* border box hack */
 html {
     box-sizing: border-box;
@@ -82,6 +91,7 @@ h2 {
 }
 /*  */
 .textbox {
+    width:50%;
     padding: 0;
     animation: boxExpand 1s ease-in-out;
     font-size: 26px;
@@ -143,6 +153,7 @@ color: springgreen;
     flex-wrap: wrap;
     justify-content: space-between;
     align-items: space-between;
+
 }
 
 .tile-container{
