@@ -7,6 +7,7 @@
 
 const gallery = document.querySelector('[data-gallery]');
 const galleryImage = document.querySelector('[data-image]');
+const largeGallery = document.querySelector('[data-large-gallery]');
 const searchForm = document.querySelector('[data-form]');
 const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
@@ -214,7 +215,6 @@ function getExif(object) {
     return exifObject;
 }
 
-
 // =======================================================
 // draw time and type to screen
 // ======================================================
@@ -263,6 +263,7 @@ function drawImages(array) {
     // for (item of array) {
     //     srcArray.push(item.src);
     // }
+    console.log(array);
     gallery.classList.remove('gallery-hidden');
     let index = 0;
     galleryImage.src = array[index].src;
@@ -295,8 +296,19 @@ function drawImages(array) {
         addMarker(latitude, longitude);
         getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
         getInfo(array[index]);
-
     });
+    return array;
+}
+
+// ========================================================
+// draw large gallery
+// ========================================================
+
+function drawLargeGallery(array) {
+    for (image of array) {
+        let img = document.createElement('img');
+        largeGallery.appendChild(img);
+    }
     return array;
 }
 
@@ -312,6 +324,9 @@ function getPhotos(userSearch) {
         .then(drawImages);
 }
 
+//==========================================================
+// footer expand/contract
+// =========================================================
 contact.addEventListener('mouseover', function () {
     lorenzoLinks.classList.remove('our-links-hidden');
     ameliaLinks.classList.remove('our-links-hidden');
