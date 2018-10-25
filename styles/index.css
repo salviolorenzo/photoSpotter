@@ -229,8 +229,6 @@ footer ul{
     justify-content: center;
     align-content: stretch;
     
-    /* border: solid 1px purple; */}
-
 .our-links-hidden{
     display:none;
 }
@@ -262,6 +260,7 @@ footer ul{
         flex-direction: row;
     }
 
+
 }
 
 @media screen and (min-width: 768px) {
@@ -287,3 +286,4 @@ footer ul{
         width: 24%;
     }
 }
+
