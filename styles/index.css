@@ -212,7 +212,7 @@ footer ul{
     justify-content: center;
     align-content: stretch;
     
-    /* border: solid 1px purple; */
+    
     
 
     
@@ -241,12 +241,9 @@ footer ul{
 
     }
 
-    .our-links i:active{
-        color: darkseagreen;
+   
 
+    
     }
 
-    /* .our-links-hidden{
-        display: none;
-    } */
-}
+   
