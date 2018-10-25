@@ -105,10 +105,24 @@ color: springgreen;
     
 }
 
+.gallery{
+    display: none;
+}
+
 .gallery-hidden{
     display:none;
 }
 
+.large-gallery{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.gallery-tiles{
+    width: 48%;
+    height: 20%;
+}
 
 #myImg {
     border-radius: 5px;
@@ -134,8 +148,6 @@ color: springgreen;
     width: 100%;
     min-height: 300px;
     display: flex;
-
-   
     
 }
 
