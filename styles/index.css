@@ -240,4 +240,13 @@ footer ul{
         flex-direction: column;
 
     }
+
+    .our-links i:active{
+        color: darkseagreen;
+
+    }
+
+    /* .our-links-hidden{
+        display: none;
+    } */
 }
