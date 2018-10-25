@@ -15,6 +15,19 @@ const infoContainer = document.querySelector('[data-info-container]');
 const contact = document.querySelector('[data-contacts]');
 const Links = document.querySelector('[data-link-list]');
 
+const triggerElement = document.querySelector('[data-trigger]');
+const inputBox = document.querySelector('[data-input]');
+const searchButton = document.querySelector('[data-submit]');
+// ========================
+// Opening button
+// ========================
+
+triggerElement.addEventListener('click', function () {
+    triggerElement.classList.add('hide-button');
+    inputBox.classList.remove('textbox-hidden');
+    searchButton.classList.remove('hide-button');
+})
+
 // ========================================
 //returns array of image promises
 // ========================================
