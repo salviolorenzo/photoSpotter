@@ -220,8 +220,6 @@ footer ul{
     justify-content: center;
     align-content: stretch;
     
-    /* border: solid 1px purple; */}
-
 .our-links-hidden{
     display:none;
 }
@@ -250,8 +248,7 @@ footer ul{
 
     }
 
-    /* .map, .weather {
-        width: 50%;
-    } */
+   
 }
 
+  
