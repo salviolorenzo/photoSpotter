@@ -116,12 +116,14 @@ color: springgreen;
 .large-gallery{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: space-between;
 }
 
 .gallery-tiles{
-    width: 48%;
+    width: 100%;
     height: 20%;
+    margin: 3px 0;
 }
 
 #myImg {
@@ -148,7 +150,7 @@ color: springgreen;
     width: 100%;
     min-height: 300px;
     display: flex;
-    
+    flex-wrap: wrap;
 }
 
 .map, .weather{
@@ -223,14 +225,24 @@ footer ul{
     display:none;
 }
 
-@media only screen and (max-width: 560px) {
+@media screen and (min-width: 560px) {
     .modal-content {
         width: 100%;
+    }
+
+    .gallery-tiles{
+        width: 49%;
     }
 
     .map-weather {
     width: 100%;
     min-height: 300px;
-    display: block;
+    display: flex;
+    }
+
+    .map, .weather {
+        width: 50%;
     }
 }
+
+@media sc
