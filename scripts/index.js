@@ -13,8 +13,8 @@ const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
 const infoContainer = document.querySelector('[data-info-container]');
 const contact = document.querySelector('[data-contacts]');
-const lorenzoLinks = document.querySelector('[data-link-list1]');
-const ameliaLinks = document.querySelector('[data-link-list2]');
+const Links = document.querySelector('[data-link-list]');
+
 // ========================================
 //returns array of image promises
 // ========================================
@@ -352,11 +352,11 @@ function getPhotos(userSearch) {
 // footer expand/contract
 // =========================================================
 contact.addEventListener('mouseover', function () {
-    lorenzoLinks.classList.remove('our-links-hidden');
-    ameliaLinks.classList.remove('our-links-hidden');
+    Links.classList.remove('our-links-hidden');
+
 })
 
 contact.addEventListener('mouseout', function () {
-    lorenzoLinks.classList.add('our-links-hidden');
-    ameliaLinks.classList.add('our-links-hidden');
+    Links.classList.add('our-links-hidden');
+
 })
