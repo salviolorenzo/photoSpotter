@@ -207,11 +207,7 @@ footer ul{
     width:50%;
     position: absolute;
     display: flex;
-    justify-content: left;
-    flex-direction: row;
-    margin-right: 10px;
-    /* border: solid 1px blue; */
-    
+ 
 }
 
 .our-links i{
@@ -226,12 +222,7 @@ footer ul{
     justify-content: center;
     align-content: stretch;
     
-    /* border: solid 1px purple; */
-    
-
-    
-    
-}
+    /* border: solid 1px purple; */}
 
 .our-links-hidden{
     display:none;
@@ -256,5 +247,3 @@ footer ul{
         width: 50%;
     }
 }
-
-@media sc
