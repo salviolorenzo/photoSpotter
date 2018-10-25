@@ -203,8 +203,8 @@ footer ul{
     width:50%;
     position: absolute;
     display: flex;
-    justify-content: left;
-    flex-direction: row;
+    justify-content: center;
+    flex-direction: column;
 
 }
 
@@ -244,14 +244,14 @@ footer ul{
 
     .our-links {
         display: flex;
-        justify-content: center;
-        flex-direction: column;
+        
+        justify-content: left;
+        flex-direction: row;
 
     }
-}
 
-    .map, .weather {
+    /* .map, .weather {
         width: 50%;
-    }
+    } */
 }
 
