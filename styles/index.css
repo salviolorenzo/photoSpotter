@@ -105,10 +105,6 @@ color: springgreen;
     
 }
 
-.gallery{
-    display: none;
-}
-
 .gallery-hidden{
     display:none;
 }
@@ -207,17 +203,19 @@ footer ul{
     width:50%;
     position: absolute;
     display: flex;
- 
+    justify-content: left;
+    flex-direction: row;
+
 }
 
 .our-links i{
     color:  rgb(125, 125, 125);
 }
 
-.our-links i:hover, .our-links i:active{
+.our-links i:hover, i:active {
     transform: scale(2);
     color:darkseagreen;
-    transition: transform 0.25s;
+    transition: transform 0.5s;
     display: flex;
     justify-content: center;
     align-content: stretch;
@@ -243,7 +241,17 @@ footer ul{
     display: flex;
     }
 
+
+    .our-links {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+
+    }
+}
+
     .map, .weather {
         width: 50%;
     }
 }
+
