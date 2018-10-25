@@ -207,18 +207,30 @@ footer ul{
     width:50%;
     position: absolute;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: left;
+    flex-direction: row;
+    margin-right: 10px;
+    /* border: solid 1px blue; */
+    
 }
 
 .our-links i{
     color:  rgb(125, 125, 125);
 }
 
-.our-links i:hover{
+.our-links i:hover, .our-links i:active{
     transform: scale(2);
     color:darkseagreen;
     transition: transform 0.25s;
+    display: flex;
+    justify-content: center;
+    align-content: stretch;
+    
+    /* border: solid 1px purple; */
+    
+
+    
+    
 }
 
 .our-links-hidden{
