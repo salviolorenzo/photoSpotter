@@ -193,8 +193,8 @@ footer ul{
     width:50%;
     position: absolute;
     display: flex;
-    justify-content: center;
-    flex-direction: column;
+    justify-content: left;
+    flex-direction: row;
 }
 
 .our-links i{
@@ -205,6 +205,8 @@ footer ul{
     transform: scale(2);
     color:darkseagreen;
     transition: transform 0.25s;
+    
+    
 }
 
 .our-links-hidden{
