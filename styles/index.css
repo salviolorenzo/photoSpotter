@@ -116,9 +116,18 @@ color: springgreen;
     align-items: space-between;
 }
 
+.tile-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* align-items: space-evenly; */
+}
+
 .gallery-tiles{
     width: 100%;
-    height: 20%;
+    max-height: 20%;
     margin: 3px 0;
 }
 
@@ -231,6 +240,11 @@ footer ul{
 
     .gallery-tiles{
         width: 49%;
+        max-height: 15%;
+    }
+
+    .tile-container{
+        justify-content: space-evenly;
     }
 
     .map-weather {
@@ -242,13 +256,34 @@ footer ul{
 
     .our-links {
         display: flex;
-        
         justify-content: left;
         flex-direction: row;
-
     }
 
-   
+
 }
 
-  
+@media screen and (min-width: 768px) {
+    .map-container-half, .weather{
+        width: 50%;
+    }
+
+
+}
+
+@media screen and (min-width: 1200px){
+
+
+    .gallery-tiles{
+        width: 32%;
+    }
+}
+
+@media screen and (min-width: 1400px){
+
+
+    .gallery-tiles{
+        width: 24%;
+    }
+}
+

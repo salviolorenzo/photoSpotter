@@ -153,6 +153,7 @@ function weather(obj) {
     currentDiv.appendChild(drawTemp(obj));
     currentDiv.appendChild(getClouds(obj));
     weatherContainer.classList.remove('weather-hidden');
+    mapContainer.classList.add('map-container-half');
     weatherContainer.appendChild(currentDiv);
     return obj;
 }
@@ -305,14 +306,19 @@ function drawImages(array) {
 // ========================================================
 
 function drawLargeGallery(array) {
-    console.log(array);
+    if (largeGallery.hasChildNodes()) {
+        largeGallery.removeChild(largeGallery.firstChild);
+    }
     const imgArray = [];
+    let container = document.createElement('div');
+    container.classList.add('tile-container');
+    largeGallery.appendChild(container);
     for (image of array) {
         let img = document.createElement('img');
         img.setAttribute('src', image.src);
         img.classList.add('gallery-tiles');
         imgArray.push(img);
-        largeGallery.appendChild(img);
+        container.appendChild(img);
     }
     for (image of imgArray) {
         image.addEventListener('click', function (event) {
