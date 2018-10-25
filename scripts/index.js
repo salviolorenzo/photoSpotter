@@ -256,7 +256,7 @@ function getInfo(object) {
 // ======================================================
 // moves image sources into a new array, change image on key press
 // ======================================================
-
+// NOT CURRENTLY BEING USED
 
 function drawImages(array) {
     // let srcArray = [];
@@ -294,7 +294,7 @@ function drawImages(array) {
         let latitude = parseFloat(array[index].latitude);
         let longitude = parseFloat(array[index].longitude);
         addMarker(latitude, longitude);
-        getWeather(parseFloat(latitude.toFixed(0)), parseFloat(longitude.toFixed(0)));
+        getWeather(Math.round(latitude), Math.round(longitude));
         getInfo(array[index]);
     });
     return array;
@@ -305,10 +305,26 @@ function drawImages(array) {
 // ========================================================
 
 function drawLargeGallery(array) {
+    console.log(array);
+    const imgArray = [];
     for (image of array) {
         let img = document.createElement('img');
+        img.setAttribute('src', image.src);
+        img.classList.add('gallery-tiles');
+        imgArray.push(img);
         largeGallery.appendChild(img);
     }
+    for (image of imgArray) {
+        image.addEventListener('click', function (event) {
+            let index = imgArray.indexOf(event.target);
+            let latitude = parseFloat(array[index].latitude);
+            let longitude = parseFloat(array[index].longitude);
+            addMarker(latitude, longitude);
+            getWeather(Math.round(latitude), Math.round(longitude));
+            getInfo(array[index]);
+        })
+    }
+
     return array;
 }
 
@@ -321,7 +337,9 @@ function getPhotos(userSearch) {
         .then(j => j.photos)
         .then(getPhotoStats)
         .then(locationsArray)
-        .then(drawImages);
+        // .then(drawImages)
+        .then(drawLargeGallery);
+    // .then(drawImages);
 }
 
 //==========================================================
