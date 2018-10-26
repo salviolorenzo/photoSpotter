@@ -1,2 +1,2 @@
 # PhotoSpotter
-! (images/photospotterlogo.png)
+!(https://github.com/salviolorenzo/photoSpotter/blob/master/images/photospotterlogo.png)
