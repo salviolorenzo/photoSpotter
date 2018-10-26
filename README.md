@@ -21,9 +21,13 @@
 
 ## Landing Page
 ![alt text](images/iphoneScreenshot.png)
-
+![alt text](images/desktopLanding.png)
 ## Gallery
-
+![alt text](images/mobilegallery.png)
+![alt text](images/desktopGallery.png)
 ## Map
-
+![alt text](images/mobileMap.png)
+![alt text](images/DesktopMap.png)
 ## Weather
+![alt text](images/mobileweather.png)
+![alt text](images/DesktopWeather.png)
