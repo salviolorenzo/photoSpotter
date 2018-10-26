@@ -1,2 +1,2 @@
-#PhotoSpotter
-!(images/photospotterlogo.png)
+# PhotoSpotter
+! (images/photospotterlogo.png)
