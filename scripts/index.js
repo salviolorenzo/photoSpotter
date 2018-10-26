@@ -18,6 +18,8 @@ const Links = document.querySelector('[data-link-list]');
 const triggerElement = document.querySelector('[data-trigger]');
 const inputBox = document.querySelector('[data-input]');
 const searchButton = document.querySelector('[data-submit]');
+
+const select = document.querySelector('[data-select]');
 // ========================
 // Opening button
 // ========================
@@ -26,6 +28,7 @@ triggerElement.addEventListener('click', function () {
     triggerElement.classList.add('hide-button');
     inputBox.classList.remove('textbox-hidden');
     searchButton.classList.remove('hide-button');
+    select.classList.remove('select-hide');
 })
 
 // ========================================
@@ -61,7 +64,7 @@ function getPhotoStats(obj) {
                 statArray[index]['location'] = location;
             });
             // console.log(statArray.slice(0, 20));
-            return statArray.slice(0, 20);
+            return statArray.slice(0, 50);
         });
 }
 
@@ -88,7 +91,7 @@ function initMap() {
 
     map = new google.maps.Map(mapContainer, {
         center: myLatLng,
-        zoom: 2
+        zoom: 1
     });
 
 }
@@ -156,7 +159,7 @@ function weather(obj) {
     let img = document.createElement('img');
     let h3 = document.createElement('h3');
     h3.textContent = `Today's Weather: `
-    let weatherHeader = document.createElement('h5');
+    let weatherHeader = document.createElement('h3');
     img.setAttribute('src', `http://openweathermap.org/img/w/${iconID}.png`);
     weatherHeader.textContent = `${capitalize(weatherObj.description)}`;
     currentDiv.appendChild(h3);
@@ -322,6 +325,7 @@ function drawLargeGallery(array) {
     if (largeGallery.hasChildNodes()) {
         largeGallery.removeChild(largeGallery.firstChild);
     }
+    array = array.slice(0, select.value);
     const imgArray = [];
     let container = document.createElement('div');
     container.classList.add('tile-container');
