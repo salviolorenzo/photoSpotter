@@ -1,0 +1,2 @@
+#PhotoSpotter
+!(images/photospotterlogo.png)
