@@ -84,11 +84,11 @@ function locationsArray(array) {
 
 let map;
 function initMap() {
-    let myLatLng = { 'lat': 50, 'lng': -25 };
+    let myLatLng = { 'lat': 20, 'lng': 7 };
 
     map = new google.maps.Map(mapContainer, {
         center: myLatLng,
-        zoom: 1
+        zoom: 2
     });
 
 }
