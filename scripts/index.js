@@ -1,10 +1,3 @@
-// get photos by search ==>
-// extract IDs ==>
-// display to screen in scrollable gallery // 20 photos per search
-// get location and meta data ==>
-// when image is clicked ==> place point on map and display weather ==>
-// show location info?
-
 const gallery = document.querySelector('[data-gallery]');
 const galleryImage = document.querySelector('[data-image]');
 const largeGallery = document.querySelector('[data-large-gallery]');
@@ -86,6 +79,7 @@ function locationsArray(array) {
 // Maps API Functions
 // ============================================================
 
+// Initial map settings
 let map;
 function initMap() {
     let myLatLng = { 'lat': 20, 'lng': 7 };
@@ -97,6 +91,7 @@ function initMap() {
 
 }
 
+// function to create markers for individual images
 let markerArray = [];
 function addMarker(lat, long) {
     let marker = new google.maps.Marker({
@@ -117,6 +112,8 @@ function addMarker(lat, long) {
 //==========================================================
 // Weather API Functions
 // ============================================================
+
+// get name from the returned object of the Promise
 function drawName(obj) {
     let cityName;
     cityName = document.createElement('h3');
@@ -124,6 +121,7 @@ function drawName(obj) {
     return cityName
 }
 
+// get temperature from same object
 function drawTemp(obj) {
     let temperature = document.createElement('p');
     let temp = obj.main.temp;
@@ -132,6 +130,7 @@ function drawTemp(obj) {
     return temperature;
 }
 
+// get cloudiness percentage
 function getClouds(obj) {
     let clouds = obj.clouds.all
     const cloud = document.createElement('p');
@@ -139,6 +138,7 @@ function getClouds(obj) {
     return cloud;
 }
 
+// description of weather returned is lower case, this capitalizes the returned phrase
 function capitalize(string) {
     arr = string.split(' ');
     for (item of arr) {
@@ -150,6 +150,7 @@ function capitalize(string) {
     return arr.join(' ');
 }
 
+// puts all the weather data together in a single div, appends div to its container
 function weather(obj) {
     if (weatherContainer.hasChildNodes()) {
         weatherContainer.removeChild(weatherContainer.firstChild);
@@ -234,7 +235,7 @@ function getExif(object) {
 }
 
 // =======================================================
-// draw time and type to screen
+// draw time and camera type to screen
 // ======================================================
 function drawInfo(object) {
 
@@ -314,6 +315,7 @@ function drawLargeGallery(array) {
         imgArray.push(img);
         container.appendChild(img);
     }
+    // adds clickable functionality to display image data
     for (image of imgArray) {
         image.addEventListener('click', function (event) {
             let index = imgArray.indexOf(event.target);
@@ -342,16 +344,3 @@ function getPhotos(userSearch) {
         .then(drawLargeGallery);
     // .then(drawImages);
 }
-
-//==========================================================
-// footer expand/contract
-// =========================================================
-contact.addEventListener('mouseover', function () {
-    Links.classList.remove('our-links-hidden');
-
-})
-
-contact.addEventListener('mouseout', function () {
-    Links.classList.add('our-links-hidden');
-
-})
