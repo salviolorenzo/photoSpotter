@@ -20,6 +20,7 @@ const inputBox = document.querySelector('[data-input]');
 const searchButton = document.querySelector('[data-submit]');
 
 const select = document.querySelector('[data-select]');
+const timeSection = document.querySelector('[data-time]')
 // ========================
 // Opening button
 // ========================
@@ -270,51 +271,27 @@ function getInfo(object) {
         .then(drawInfo);
 }
 
-// ======================================================
-// moves image sources into a new array, change image on key press
-// ======================================================
-// NOT CURRENTLY BEING USED
 
-function drawImages(array) {
-    // let srcArray = [];
-    // for (item of array) {
-    //     srcArray.push(item.src);
-    // }
-    console.log(array);
-    gallery.classList.remove('gallery-hidden');
-    let index = 0;
-    galleryImage.src = array[index].src;
+// =======================================================
+// get local time
+// =======================================================
 
-    // console.log(array);
-    // console.log(galleryImage.src);
+function getTime(object) {
+    if (timeSection.hasChildNodes()) {
+        timeSection.removeChild(timeSection.firstChild);
+    }
+    let dateTime = object.formatted;
+    let dateTimeArr = dateTime.split(' ');
+    let time = dateTimeArr[1];
+    let timeBox = document.createElement('p');
+    timeBox.textContent = `Local time: ${time}`;
+    timeSection.appendChild(timeBox);
+}
 
-    window.addEventListener('keydown', function (event) {
-        if (event.keyCode === 39) {
-            console.log('right');
-            index += 1;
-            if (index > array.length - 1) {
-                index = 0;
-            }
-            galleryImage.src = array[index].src;
-
-        }
-        else if (event.keyCode === 37) {
-            console.log('left');
-            index -= 1;
-            if (index < 0) {
-                index = array.length - 1;
-            }
-            galleryImage.src = array[index].src;
-        }
-    })
-    galleryImage.addEventListener('click', function () {
-        let latitude = parseFloat(array[index].latitude);
-        let longitude = parseFloat(array[index].longitude);
-        addMarker(latitude, longitude);
-        getWeather(Math.round(latitude), Math.round(longitude));
-        getInfo(array[index]);
-    });
-    return array;
+function getLocalTime(lat, long) {
+    fetch(`http://api.timezonedb.com/v2.1/get-time-zone?key=${tzDBKey}&format=json&by=position&lat=${lat}&lng=${long}`)
+        .then(r => r.json())
+        .then(getTime);
 }
 
 // ========================================================
@@ -344,6 +321,7 @@ function drawLargeGallery(array) {
             let longitude = parseFloat(array[index].longitude);
             addMarker(latitude, longitude);
             getWeather(Math.round(latitude), Math.round(longitude));
+            getLocalTime(Math.round(latitude), Math.round(longitude));
             getInfo(array[index]);
         })
     }
