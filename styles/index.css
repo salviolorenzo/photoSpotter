@@ -39,10 +39,31 @@ body {
     font-family: 'Prata', serif;
 }
 
+header{
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content:center;
+}
+
+.logo-img{
+    width: 5%;
+    min-width: 30px;
+    min-height: 24px;
+    /* height: 10%; */
+    position: absolute;
+    left: 1%;
+    top: 21px;
+    /* height: 5%; */
+}
+
 h1 {
     text-align: center;
     font-family: 'Monoton', cursive;
-
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
     color: darkseagreen;
 
 }
@@ -51,6 +72,7 @@ h1 {
     /* margin: 0 2px; */
     padding-bottom: 5px;
     display: flex;
+    width: 100%;
     justify-content: space-around;
     border-bottom: 1px solid powderblue;
     
@@ -94,6 +116,11 @@ h2 {
     margin-bottom: 3px;
 }
 
+.landing-text {
+    font-size: 18px;
+    transition: font-size 0.7s;
+}
+
 /*  */
 .textbox {
     width:50%;
@@ -131,7 +158,7 @@ color: springgreen;
 
 #firstButton{
     position: absolute;
-    top: 385px;
+    top: 359px;
     border-radius: 5px; 
 }
 
@@ -221,15 +248,10 @@ color: springgreen;
 
 
 .weather {
-    background-color: azure;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    background: linear-gradient(to bottom, #f9f9f9 0%,#88b7d8 27%,#64a9db 50%,#88b7d8 71%,#dce4ea 100%);}
 
 .weather div{
-    height: 350px;
+    height: 400px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
@@ -247,13 +269,14 @@ color: springgreen;
 
 .time-info{
     display: flex;
+    text-align: center;
     justify-content: center;
     width: 100%;
 }
 
 .time-info p{
     margin: 5px 0; 
-    padding: 5px 20px 10px 0px;
+    padding:5px 20px 10px 20px;
     border-bottom: 1px solid rgba(169, 169, 169, 0.653);
 }
 
@@ -308,6 +331,7 @@ footer ul{
     display: flex;
     justify-content: space-evenly;
     font-size: 20px;
+    transition: font-size 0.7s;
     /* flex-direction: ; */
 
 }
@@ -325,17 +349,15 @@ footer ul{
     /* align-content: stretch; */
 }
 
-.our-links-hidden{
+/* .our-links-hidden{
     display:none;
-}
-
-@media screen and (max-width: 570px) {
-    .landing-text {
-        font-size: 18px;
-    }
-}
+} */
 
 @media screen and (min-width: 560px) {
+    .landing-text {
+        font-size: 22px;
+    }
+
     .modal-content {
         width: 100%;
     }
@@ -357,6 +379,9 @@ footer ul{
 }
 
 @media screen and (min-width: 768px) {
+    .landing-text {
+        font-size: 26px;
+    }
     .map-container-half, .weather{
         width: 49%;
             }
@@ -369,7 +394,9 @@ footer ul{
 
 @media screen and (min-width: 1200px){
 
-
+    .landing-text {
+        font-size: 30px;
+    }
     .gallery-tiles{
         width: 32.5%;
     }
