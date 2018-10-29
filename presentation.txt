@@ -1,0 +1,44 @@
+1. What is the purpose?
+
+    To give users the power to recreate their favorite photos.
+    
+    Once a keyword is entered in the search bar, a gallery of images is populated. With a simple click, users can view the location of the photo, along with the time of capture and camera type, as well as local weather and time for said location.
+
+
+2. Demo site being used.
+
+
+3. Challenges:
+
+    Amelia: 
+        Making everything web responsive, formatting a large amount of data in a user-friendly way.
+
+        Learning to translate my thoughts into on-screen styles, especially  with Flexbox.
+
+
+    Lorenzo: 
+        The Maps API took some time to get acquainted with. Figuring out how to display the map and the data brought in from the Flickr API.
+
+        Making the data from different APIs work together.
+
+        Organizing my AJAX requests and function calls so they worked well together and were relatively easy to comprehend by looking at them.
+
+
+4. How did you solve these problems/what did you learn?
+
+    Amelia:
+        I learned to use flexbox efficiently and how to use media queries for styling.
+        Working to fit your own code with someone else's added a new dimension to the concept of coding.
+
+    Lorenzo:
+        I learned a lot about AJAX, particularly how data is returned from fetches, and how to manipulate objects.
+        I learned to use parameters and local variables to my advantage in writing functions.
+
+    Both:
+        Learned how to use the git collaborative workflow by trial and error. 
+
+        Learned how to plan out our tasks together, and check in with each other.
+
+        Learned to discuss issues out loud and, whether or not one of us had an answer, found great benefit in hashing it out.
+
+        Learned that consistent communication is key in any group work environment.
