@@ -4,7 +4,7 @@
 
 - An interactive Web App that gives users the power to recreate their favorite pictures by giving them the location, time and camera information of the image, as well as local weather. The user can input the subject they would like to photograph and instantly be transported to a gallery of their specified interest. With one  click of an image, the user will immediately receive all the necessary information to create a similar photo.
 
-###Authors
+### Authors
 - Lorenzo Salvio 
 - Amelia Schulz
 
@@ -38,7 +38,7 @@
 ![alt text](images/DesktopWeather.png)
 
 
-###Obstacles
+### Obstacles
 
 - Extracting and assigning data to each individual image
 - Refactoring the UI to be more user friendly 
@@ -46,5 +46,5 @@
 
 
 
-###Future Additions
+### Future Additions
 - Google maps with directions to direct users to their photo location
