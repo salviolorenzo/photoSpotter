@@ -193,7 +193,6 @@ function handleSubmit(event) {
     console.log("Searching");
     let userSearch = event.target.elements.search.value;
     getPhotos(userSearch);
-    mapWeather.classList.remove('map-hidden');
     largeGallery.scrollIntoView({
         behavior: "smooth"
     });
@@ -331,11 +330,13 @@ function drawLargeGallery(array) {
             getWeather(Math.round(latitude), Math.round(longitude));
             getLocalTime(Math.round(latitude), Math.round(longitude));
             getInfo(array[index]);
+
             mapContainer.scrollIntoView({
                 behavior: "smooth"
             });
         })
     }
+    mapWeather.classList.remove('map-hidden');
 
     return array;
 }
