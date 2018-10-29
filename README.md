@@ -2,7 +2,11 @@
 
 ![alt text](images/photospotterlogo-small.png)
 
-- An interactive Web App that gives users the power to recreate their favorite pictures by giving them the location, time and camera information of the image, as well as local weather. The user can input the subject they would like to photograph and instantly be transported to a gallery of their specified interest. With a simple click of an photo, the user will immediately receive all the necessary information to create a similar image.
+- An interactive Web App that gives users the power to recreate their favorite pictures by giving them the location, time and camera information of the image, as well as local weather. The user can input the subject they would like to photograph and instantly be transported to a gallery of their specified interest. With one  click of an image, the user will immediately receive all the necessary information to create a similar photo.
+
+###Authors
+- Lorenzo Salvio 
+- Amelia Schulz
 
 ### Technologies Used:
  - HTML5, CSS3, CSS Flexbox, JavaScript
@@ -34,12 +38,13 @@
 ![alt text](images/DesktopWeather.png)
 
 
-
 ###Obstacles
 
+- Extracting and assigning data to each individual image
+- Refactoring the UI to be more user friendly 
 
 
 
 
 ###Future Additions
--Add google maps directions to direct users to their photo location
+- Google maps with directions to direct users to their photo location
