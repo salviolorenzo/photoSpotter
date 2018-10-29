@@ -246,6 +246,9 @@ color: springgreen;
 
 }
 
+.map-hidden{
+    display: none;
+}
 
 .weather {
     background: linear-gradient(to bottom, #f9f9f9 0%,#88b7d8 27%,#64a9db 50%,#88b7d8 71%,#dce4ea 100%);}
@@ -301,6 +304,8 @@ footer{
     flex-wrap: wrap;
     color: rgb(157, 157, 157);
     width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.1);
 }
 
 footer a{

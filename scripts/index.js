@@ -2,12 +2,12 @@ const gallery = document.querySelector('[data-gallery]');
 const galleryImage = document.querySelector('[data-image]');
 const largeGallery = document.querySelector('[data-large-gallery]');
 const searchForm = document.querySelector('[data-form]');
+const mapWeather = document.querySelector('[data-map-weather]');
 const mapContainer = document.querySelector('[data-map]');
 const weatherContainer = document.querySelector('[data-weather]');
 const infoContainer = document.querySelector('[data-info-container]');
 const contact = document.querySelector('[data-contacts]');
 const Links = document.querySelector('[data-link-list]');
-
 const triggerElement = document.querySelector('[data-trigger]');
 const inputBox = document.querySelector('[data-input]');
 const searchButton = document.querySelector('[data-submit]');
@@ -193,7 +193,10 @@ function handleSubmit(event) {
     console.log("Searching");
     let userSearch = event.target.elements.search.value;
     getPhotos(userSearch);
-    largeGallery.scrollIntoView();
+    mapWeather.classList.remove('map-hidden');
+    largeGallery.scrollIntoView({
+        behavior: "smooth"
+    });
 }
 searchForm.addEventListener("submit", handleSubmit);
 
@@ -328,7 +331,9 @@ function drawLargeGallery(array) {
             getWeather(Math.round(latitude), Math.round(longitude));
             getLocalTime(Math.round(latitude), Math.round(longitude));
             getInfo(array[index]);
-            mapContainer.scrollIntoView();
+            mapContainer.scrollIntoView({
+                behavior: "smooth"
+            });
         })
     }
 
