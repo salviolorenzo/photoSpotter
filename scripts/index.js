@@ -325,6 +325,8 @@ function drawLargeGallery(array) {
             getWeather(Math.round(latitude), Math.round(longitude));
             getLocalTime(Math.round(latitude), Math.round(longitude));
             getInfo(array[index]);
+            window.scrollTo(0, document.body.scrollHeight);
+        
         })
     }
 
