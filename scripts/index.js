@@ -11,7 +11,6 @@ const Links = document.querySelector('[data-link-list]');
 const triggerElement = document.querySelector('[data-trigger]');
 const inputBox = document.querySelector('[data-input]');
 const searchButton = document.querySelector('[data-submit]');
-
 const select = document.querySelector('[data-select]');
 const timeSection = document.querySelector('[data-time]')
 // ========================
@@ -226,10 +225,10 @@ function getExif(object) {
         exifObject = {
             'time': time,
             'camera': camera
-        }
+        };
     }
     else {
-        exifObject = "Metadata not available."
+        exifObject = "Metadata not available.";
     }
     return exifObject;
 }
@@ -284,6 +283,9 @@ function getTime(object) {
     let dateTime = object.formatted;
     let dateTimeArr = dateTime.split(' ');
     let time = dateTimeArr[1];
+    if (time === undefined) {
+        time = 'Local time not available.';
+    }
     let timeBox = document.createElement('p');
     timeBox.textContent = `Local time: ${time}`;
     timeSection.appendChild(timeBox);
@@ -325,6 +327,7 @@ function drawLargeGallery(array) {
             getWeather(Math.round(latitude), Math.round(longitude));
             getLocalTime(Math.round(latitude), Math.round(longitude));
             getInfo(array[index]);
+            mapContainer.scrollIntoView();
         })
     }
 
