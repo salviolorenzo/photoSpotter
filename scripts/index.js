@@ -193,6 +193,7 @@ function handleSubmit(event) {
     console.log("Searching");
     let userSearch = event.target.elements.search.value;
     getPhotos(userSearch);
+    largeGallery.scrollIntoView();
 }
 searchForm.addEventListener("submit", handleSubmit);
 
