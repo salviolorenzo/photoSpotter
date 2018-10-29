@@ -18,6 +18,7 @@
  - TimeZoneDB API 
     - Getting local time for each location.
 
+[Demo Page](http://ec2-18-191-246-225.us-east-2.compute.amazonaws.com/)
 
 ## Landing Page
 ![alt text](images/iphoneScreenshot.png)
