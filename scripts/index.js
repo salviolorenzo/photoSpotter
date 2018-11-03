@@ -253,8 +253,6 @@ function drawInfo(object) {
         infoList.appendChild(item1);
         infoList.appendChild(item2);
         infoContainer.appendChild(infoList);
-    }
-    else {
         const infoList = document.createElement('ul');
         let item1 = document.createElement('li');
         item1.textContent = object;
@@ -273,7 +271,6 @@ function getInfo(object) {
         .then(getExif)
         .then(drawInfo);
 }
-
 
 // =======================================================
 // get local time
