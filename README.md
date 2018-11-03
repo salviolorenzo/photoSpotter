@@ -42,9 +42,13 @@
 
 - Extracting and assigning data to each individual image
 - Refactoring the UI to be more user friendly 
-
+- Learning to use the Maps API with data from other APIs.
 
 
 
 ### Future Additions
-- Google maps with directions to direct users to their photo location
+- Add metadata such as camera shutterspeed and aperture for more advanced photographers.
+- Google maps with directions to direct users to their photo location.
+- Ability to host users' personal accounts.
+- Give users ability to upload and tag their own images.
+- Add links/interactivity with local community for each image.
