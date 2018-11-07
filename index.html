@@ -2,86 +2,86 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-        crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Monoton|Prata" rel="stylesheet">
-    <link rel="stylesheet" href="styles/index.css">
-    <link rel="shortcut icon" href="../images/favicon.ico">
-    <link rel="icon" type="image/png" href="../images/favicon-32x32" sizes="32x32" />
-    <link rel="icon" type="image/png" href="../images/favicon-16x16" sizes="16x16" />
-    <title>PhotoSpotter</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+    crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Monoton|Prata" rel="stylesheet">
+  <link rel="stylesheet" href="styles/index.css">
+  <link rel="shortcut icon" href="../images/favicon.ico">
+  <link rel="icon" type="image/png" href="../images/favicon-32x32" sizes="32x32" />
+  <link rel="icon" type="image/png" href="../images/favicon-16x16" sizes="16x16" />
+  <title>PhotoSpotter</title>
 </head>
 
 <body>
-    <header>
-        <img src="images/photospotterlogo.png" alt="" class="logo-img">
-        <h1>PhotoSpotter</h1>
-        <nav class="nav-container">
-            <a class="nav-link" href="#gallery-section">Gallery</a>
-            <a class="nav-link" href="#map-section">Map</a>
-            <a class="nav-link" href="#weather-section">Weather</a>
-            <a class="nav-link" href="#contact-links">Contact</a>
-        </nav>
-    </header>
+  <header>
+    <img src="images/photospotterlogo.png" alt="" class="logo-img">
+    <h1>PhotoSpotter</h1>
+    <nav class="nav-container">
+      <a class="nav-link" href="#gallery-section">Gallery</a>
+      <a class="nav-link" href="#map-section">Map</a>
+      <a class="nav-link" href="#weather-section">Weather</a>
+      <a class="nav-link" href="#contact-links">Contact</a>
+    </nav>
+  </header>
 
-    <section class="landing-image">
-        <h2 class="landing-text">What would you like to photograph?</h2>
+  <section class="landing-image">
+    <h2 class="landing-text">What would you like to photograph?</h2>
 
-        <form class="center-center " action="" method="GET" data-form>
-            <input type="text" name="search" placeholder=" mountains" class="textbox textbox-hidden" data-input>
-            <select name="resultNumber" class="selectButton select-hide" data-select>
-                <option value="10" selected="selected">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-            <input type="submit" name="" class="submitbox hide-button" value="Search" data-submit>
-        </form>
-        <button class="submitbox" id="firstButton" data-trigger>Search</button>
-    </section>
-    <section class="large-gallery large-gallery-hidden" id="gallery-section" data-large-gallery>
+    <form class="center-center " action="" method="GET" data-form>
+      <input type="text" name="search" placeholder=" mountains" class="textbox textbox-hidden" data-input>
+      <select name="resultNumber" class="selectButton select-hide" data-select>
+        <option value="10" selected="selected">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+      </select>
+      <input type="submit" name="" class="submitbox hide-button" value="Search" data-submit>
+    </form>
+    <button class="submitbox" id="firstButton" data-trigger>Search</button>
+  </section>
+  <section class="large-gallery large-gallery-hidden" id="gallery-section" data-large-gallery>
 
-    </section>
+  </section>
 
-    <section class="map-weather map-hidden" data-map-weather>
+  <section class="map-weather map-hidden" data-map-weather>
 
-        <div class="map" id="map-section" data-map></div>
-        <div class="weather weather-hidden" id="weather-section" data-weather>
-        </div>
+    <div class="map" id="map-section" data-map></div>
+    <div class="weather weather-hidden" id="weather-section" data-weather>
+    </div>
 
-    </section>
-    <section class="time-info" data-time>
+  </section>
+  <section class="time-info" data-time>
 
-    </section>
-    <section class="image-info" data-info-container>
-    </section>
+  </section>
+  <section class="image-info" data-info-container>
+  </section>
 
-    <footer data-contacts id="contact-links">
-        <ul>
-            <li>Lorenzo Salvio/ Amelia Schulz</li>
-        </ul>
-        <div class="outside-links our-links-hidden" data-link-list>
-            <ul class="our-links">
-                <li><a href="mailto:salviolorenzo@gmail.com"><i class="fas fa-envelope-square"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/lorenzo-salvio-173210120/"><i class="fab fa-linkedin"></i></a></li>
-                <li><a href="https://github.com/salviolorenzo"><i class="fab fa-github"></i></a></li>
-                <li><a href="https://www.instagram.com/lorenzo.e.salvio/"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.facebook.com/lorenzo.salvio.9"><i class="fab fa-facebook"></i></a></li>
-            </ul>
-            <ul class="our-links">
-                <li><a href="mailto:amelia.schulz@gmail.com"><i class="fas fa-envelope-square"></i></a></li>
-                <li><a href="https://www.linkedin.com/in/amelia-schulz-b5167662/"><i class="fab fa-linkedin"></i></a></li>
-                <li><a href="https://github.com/amelia678"><i class="fab fa-github"></i></a></li>
-                <li><a href="https://www.instagram.com/uh_milli/?hl=en"><i class="fab fa-instagram"></i></a></li>
-                <li><a href="https://www.facebook.com/amelia.schulz.3"><i class="fab fa-facebook"></i></a></li>
-            </ul>
-        </div>
-    </footer>
-    <script src="scripts/config.js"></script>
-    <script src="scripts/index.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX7NHyx9RpNMLF1Hbd6vwuXy_ESzR9oSE&callback=initMap"></script>
+  <footer data-contacts id="contact-links">
+    <ul>
+      <li>Lorenzo Salvio/ Amelia Schulz</li>
+    </ul>
+    <div class="outside-links our-links-hidden" data-link-list>
+      <ul class="our-links">
+        <li><a href="mailto:salviolorenzo@gmail.com"><i class="fas fa-envelope-square"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/lorenzo-salvio-173210120/"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="https://github.com/salviolorenzo"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.instagram.com/the.actual.boi/"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="https://www.facebook.com/lorenzo.salvio.9"><i class="fab fa-facebook"></i></a></li>
+      </ul>
+      <ul class="our-links">
+        <li><a href="mailto:amelia.schulz@gmail.com"><i class="fas fa-envelope-square"></i></a></li>
+        <li><a href="https://www.linkedin.com/in/amelia-schulz-b5167662/"><i class="fab fa-linkedin"></i></a></li>
+        <li><a href="https://github.com/amelia678"><i class="fab fa-github"></i></a></li>
+        <li><a href="https://www.instagram.com/uh_milli/?hl=en"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="https://www.facebook.com/amelia.schulz.3"><i class="fab fa-facebook"></i></a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="scripts/config.js"></script>
+  <script src="scripts/index.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDX7NHyx9RpNMLF1Hbd6vwuXy_ESzR9oSE&callback=initMap"></script>
 </body>
 
 </html>
